@@ -1,0 +1,17 @@
+{
+    "response_code": 0,
+    "results": [
+        {
+            "type": "multiple",
+            "difficulty": "medium",
+            "category": "General Knowledge",
+            "question": "What does the &quot;G&quot; mean in &quot;G-Man&quot;?",
+            "correct_answer": "Government",
+            "incorrect_answers": [
+                "Going",
+                "Ghost",
+                "Geronimo"
+            ]
+        }
+    ]
+}

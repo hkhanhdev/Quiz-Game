@@ -1,11 +1,13 @@
 import random
 import time
+import GetData
 class Game():
     def __init__(self):
         print("Welcome to the Quiz Gamee")
         self.score = 0
         self.player_name = input("What is your name? ")
         self.questions = []
+        self.selected_question = {"question":"","answer":[]}
         self.correct_answers = {"option":"","answer":""}
         self.params = {'amount':'',"category":"","difficulty":"","type":""}
 
@@ -57,6 +59,7 @@ class Game():
             self.questions.append({"question":question,"answers":answers})
 
 
+
     def display_question_and_processing(self,questions):
         ques_ind = 1
         print("--------------GAME START -----------")
@@ -66,9 +69,9 @@ class Game():
             # Randomly choose a question
             rand_ques_index = random.randint(0, len(questions) - 1)
             # Remove and print the selected question
-            selected_question = questions.pop(rand_ques_index)
-            print(f"Question {ques_ind} : {selected_question['question']}")
-            self.randomly_select_and_present_options(selected_question['answers'])
+            self.selected_question = questions.pop(rand_ques_index)
+            print(f"Question {ques_ind} : {self.selected_question['question']}")
+            self.randomly_select_and_present_options(self.selected_question['answers'])
 
             while True:
                 try:
@@ -103,12 +106,13 @@ class Game():
         for option, answer in zip(options,list_of_answers):
             if self.correct_answers['answer'] == answer:
                 self.correct_answers["option"] = option.lower()
-                print(f"{self.correct_answers}")
             print(f"{option}. {answer}")
 
     def randomly_select_and_present_options(self,answers):
-        self.correct_answers = {"option":"","answer":answers[3]}
-
+        if len(self.selected_question['answers']) == 4:
+            self.correct_answers = {"option":"","answer":answers[3]}
+        elif len(self.selected_question['answers']) == 2:
+            self.correct_answers = {"option": "", "answer": answers[1]}
         random.shuffle(answers)
         self.present_options(answers)
 
@@ -118,12 +122,25 @@ class Game():
             print("Yahoo! You got it")
             print(f"CURRENT SCORE: {self.score}")
             print("------------------------------")
-        elif user_answer == "Y":
+        elif user_answer.lower() == "y":
             self.game_init()
+            self.score = 0
+            self.fetch_questions()
+            self.display_question_and_processing(self.questions)
 
-        elif user_answer == "N":
+        elif user_answer.lower() == "n":
             print("Goodbye!")
         else:
             print(f"CURRENT SCORE: {self.score}")
             print("Sorry, the answer you entered is incorrect!")
             print("------------------------------")
+
+    def fetch_questions(self):
+        json_file_path = 'questions_data.json'
+        api_url = 'https://opentdb.com/api.php'
+        # Fetch questions from the API
+        questions_data = GetData.fetch_questions_from_apis(api_url, params=self.params)
+        # Save questions to a JSON file
+        GetData.save_questions_to_storage(questions_data, json_file_path)
+        contents = GetData.fetch_questions_from_storage(json_file_path)
+        self.load_questions(contents['results'])

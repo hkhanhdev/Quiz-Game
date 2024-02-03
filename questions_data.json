@@ -2,15 +2,43 @@
     "response_code": 0,
     "results": [
         {
-            "type": "multiple",
-            "difficulty": "medium",
+            "type": "boolean",
+            "difficulty": "easy",
             "category": "General Knowledge",
-            "question": "What does the &quot;G&quot; mean in &quot;G-Man&quot;?",
-            "correct_answer": "Government",
+            "question": "Video streaming website YouTube was purchased in it&#039;s entirety by Facebook for US$1.65 billion in stock.",
+            "correct_answer": "False",
             "incorrect_answers": [
-                "Going",
-                "Ghost",
-                "Geronimo"
+                "True"
+            ]
+        },
+        {
+            "type": "boolean",
+            "difficulty": "easy",
+            "category": "General Knowledge",
+            "question": "Scotland voted to become an independent country during the referendum from September 2014.",
+            "correct_answer": "False",
+            "incorrect_answers": [
+                "True"
+            ]
+        },
+        {
+            "type": "boolean",
+            "difficulty": "easy",
+            "category": "General Knowledge",
+            "question": "You can legally drink alcohol while driving in Mississippi.",
+            "correct_answer": "True",
+            "incorrect_answers": [
+                "False"
+            ]
+        },
+        {
+            "type": "boolean",
+            "difficulty": "easy",
+            "category": "General Knowledge",
+            "question": "In 2010, Twitter and the United States Library of Congress partnered together to archive every tweet by American citizens.",
+            "correct_answer": "True",
+            "incorrect_answers": [
+                "False"
             ]
         }
     ]
